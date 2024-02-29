@@ -32,6 +32,11 @@ namespace HSMDatabase.AccessManager.DatabaseEntities
         public byte RepeateMode { get; init; }
     }
 
+    public sealed record PolicyFrequencyFilterEntity
+    {
+        public byte ActivationPeriod { get; init; }
+    }
+
 
     public sealed record PolicyEntity
     {
@@ -40,6 +45,8 @@ namespace HSMDatabase.AccessManager.DatabaseEntities
         public PolicyDestinationEntity Destination { get; init; }
 
         public PolicyScheduleEntity Schedule { get; init; }
+        
+        public PolicyFrequencyFilterEntity Frequency { get; set; }
 
 
         public byte[] Id { get; init; }

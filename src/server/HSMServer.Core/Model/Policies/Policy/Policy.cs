@@ -43,6 +43,8 @@ namespace HSMServer.Core.Model.Policies
 
         public PolicySchedule Schedule { get; set; } = new();
 
+        public PolicyFrequencyFilter Frequency { get; set; } = new();
+
 
         public string Template
         {
@@ -119,6 +121,7 @@ namespace HSMServer.Core.Model.Policies
                 Destination.Update(update.Destination);
                 ConfirmationPeriod = update.ConfirmationPeriod;
                 Schedule.Update(update.Schedule);
+                Frequency.Update(update.Frequency);
                 IsDisabled = update.IsDisabled;
                 Template = update.Template;
                 Status = update.Status;

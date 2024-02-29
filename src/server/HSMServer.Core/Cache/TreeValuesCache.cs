@@ -43,6 +43,7 @@ namespace HSMServer.Core.Cache
 
         private readonly ConfirmationManager _confirmationManager = new();
         private readonly ScheduleManager _scheduleManager = new();
+        private readonly FilterManager _filterManager = new();
 
         private readonly ITreeStateSnapshot _snapshot;
         private readonly IUpdatesQueue _updatesQueue;
@@ -68,7 +69,8 @@ namespace HSMServer.Core.Cache
             _updatesQueue.NewItemsEvent += UpdatesQueueNewItemsHandler;
 
             _confirmationManager.NewMessageEvent += _scheduleManager.ProcessMessage;
-            _scheduleManager.NewMessageEvent += SendAlertMessage;
+            _scheduleManager.NewMessageEvent += _filterManager.ProcessMessage;
+            _filterManager.NewMessageEvent += SendAlertMessage;
 
             Initialize();
         }
@@ -1326,6 +1328,7 @@ namespace HSMServer.Core.Cache
         {
             _confirmationManager.FlushMessages();
             _scheduleManager.FlushMessages();
+            _filterManager.FlushMessages();
 
             foreach (var sensor in GetSensors())
                 sensor.CheckTimeout();

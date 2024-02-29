@@ -41,6 +41,8 @@ namespace HSMServer.Core.Cache.UpdateEntities
         public PolicyDestinationUpdate Destination { get; init; }
 
         public PolicyScheduleUpdate Schedule { get; init; }
+        
+        public PolicyFrequencyUpdate Frequency { get; init; }
 
         public long? ConfirmationPeriod { get; init; }
 
@@ -108,4 +110,7 @@ namespace HSMServer.Core.Cache.UpdateEntities
     public sealed record PolicyScheduleUpdate(
         DateTime? Time,
         AlertRepeatMode? RepeatMode);
+    
+    public sealed record PolicyFrequencyUpdate(
+        AlertRepeatMode? ActivationPeriod);
 }
