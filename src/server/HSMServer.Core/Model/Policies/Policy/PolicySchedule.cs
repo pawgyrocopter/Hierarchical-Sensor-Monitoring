@@ -13,6 +13,8 @@ namespace HSMServer.Core.Model.Policies
         Hourly = 20,
         Daily = 50,
         Weekly = 100,
+        
+        Test = 111
     }
 
 

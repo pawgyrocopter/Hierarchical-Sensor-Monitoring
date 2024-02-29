@@ -34,6 +34,8 @@ namespace HSMServer.Core.Model.Policies
         public bool IsReplaceAlert { get; }
         
         public bool IsFilterAlert { get; }
+        
+        public DateTime FrequenceTime { get; }
 
 
         public AlertState LastState { get; private set; }
@@ -61,7 +63,8 @@ namespace HSMServer.Core.Model.Policies
             IsStatusIsChangeResult = policy.Conditions.IsStatusChangeResult();
             IsScheduleAlert = policy.Schedule.RepeatMode is not AlertRepeatMode.Immediately;
             IsReplaceAlert = isReplace && IsScheduleAlert;
-            IsFilterAlert = policy.Frequency is null || policy.Frequency.ActivationPeriod is AlertRepeatMode.Immediately;
+            IsFilterAlert = policy.Frequency.ActivationPeriod is not AlertRepeatMode.Immediately;
+            FrequenceTime = policy.Frequency.GetSendTime();
             
             AddPolicyResult(policy);    
         }

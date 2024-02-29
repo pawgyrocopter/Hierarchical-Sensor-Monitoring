@@ -1,4 +1,5 @@
-﻿using HSMDatabase.AccessManager.DatabaseEntities;
+﻿using System;
+using HSMDatabase.AccessManager.DatabaseEntities;
 using HSMServer.Core.Cache.UpdateEntities;
 
 namespace HSMServer.Core.Model.Policies
@@ -15,9 +16,25 @@ namespace HSMServer.Core.Model.Policies
             if (entity is null)
                 return;
 
-            ActivationPeriod = (AlertRepeatMode)entity.ActivationPeriod;
+            // ActivationPeriod = (AlertRepeatMode)entity.ActivationPeriod;
+            ActivationPeriod = AlertRepeatMode.Test;
         }
 
+        internal DateTime GetSendTime()
+        {
+            var shiftTime = ActivationPeriod switch
+            {
+                AlertRepeatMode.Hourly => TimeSpan.FromHours(1),
+                AlertRepeatMode.Daily => TimeSpan.FromDays(1),
+                AlertRepeatMode.Weekly => TimeSpan.FromDays(7),
+                AlertRepeatMode.Test => TimeSpan.FromMinutes(1),
+                _ => TimeSpan.FromMinutes(1)
+            };
+
+            var curTime = DateTime.UtcNow;
+
+            return curTime.AddTicks(shiftTime.Ticks);
+        }
 
         internal void Update(PolicyFrequencyUpdate update)
         {

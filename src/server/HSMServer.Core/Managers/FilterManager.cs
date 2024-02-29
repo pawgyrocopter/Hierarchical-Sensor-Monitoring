@@ -19,7 +19,7 @@ internal class FilterManager : BaseTimeManager
     
         foreach (var alert in applyAlerts)
         {
-            var grouppedAlerts = _storage[alert.SendTime];
+            var grouppedAlerts = _storage[alert.FrequenceTime];
 
             if (!grouppedAlerts.TryGetValue(sensorId, out var sensorGroup))
             {
