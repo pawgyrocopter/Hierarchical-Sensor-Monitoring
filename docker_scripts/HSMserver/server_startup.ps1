@@ -12,7 +12,7 @@ if ([string]::IsNullOrEmpty($BaseDirectory))
 Write-Host "Base directory:" $BaseDirectory
 
 Write-Host $LogsFolder
-$Repository = "hsmonitoring/hierarchical_sensor_monitoring"
+$Repository = "pawgyrocopter/hierarchical_sensor_monitoring"
 $ExpectedImageTag = "${Repository}:$Version"
 $ContainerName = "HSMServer"
 
